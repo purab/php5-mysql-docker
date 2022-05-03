@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: server
+    ports:
+      - 8080:80
+    volumes:
+      - .:/var/www/docker-php-5
+      - ./logs/apache2:/var/log/apache2
+
+  db:
+    image: mysql:5.5
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=purab
+      - MYSQL_USER=purab
+      - MYSQL_PASSWORD=password
+    ports:
+      - 8306:3306
+    volumes:
+      - /var/lib/mysql/purab:/var/lib/mysql/purab
